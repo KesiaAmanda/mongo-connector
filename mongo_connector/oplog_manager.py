@@ -540,12 +540,12 @@ class OplogThread(threading.Thread):
             if not db_list:
                 # Only use listDatabases when the configured databases are not
                 # explicit.
-                db_list = retry_until_ok(self.primary_client.database_names)
+                db_list = retry_until_ok(self.primary_client.list_database_names)
             for database in db_list:
                 if database == "config" or database == "local":
                     continue
                 coll_list = retry_until_ok(
-                    self.primary_client[database].collection_names
+                    self.primary_client[database].list_collection_names()
                 )
                 for coll in coll_list:
                     # ignore system collections
