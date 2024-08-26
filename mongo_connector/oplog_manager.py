@@ -607,7 +607,7 @@ class OplogThread(threading.Thread):
             for namespace in dump_set:
                 from_coll = self.get_collection(namespace)
                 mapped_ns = self.namespace_config.map_namespace(namespace)
-                total_docs = retry_until_ok(from_coll.count)
+                total_docs = retry_until_ok(lambda: from_coll.count)
                 num = None
                 for num, doc in enumerate(docs_to_dump(from_coll)):
                     try:
@@ -641,7 +641,7 @@ class OplogThread(threading.Thread):
             try:
                 for namespace in dump_set:
                     from_coll = self.get_collection(namespace)
-                    total_docs = retry_until_ok(from_coll.count)
+                    total_docs = retry_until_ok(lambda: from_coll.count)
                     mapped_ns = self.namespace_config.map_namespace(namespace)
                     LOG.info(
                         "Bulk upserting approximately %d docs from " "collection '%s'",
