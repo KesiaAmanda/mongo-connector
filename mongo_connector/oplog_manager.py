@@ -545,7 +545,7 @@ class OplogThread(threading.Thread):
                 if database == "config" or database == "local":
                     continue
                 coll_list = retry_until_ok(
-                    self.primary_client[database].list_collection_names()
+                    lambda: self.primary_client[database].list_collection_names()
                 )
                 for coll in coll_list:
                     # ignore system collections
