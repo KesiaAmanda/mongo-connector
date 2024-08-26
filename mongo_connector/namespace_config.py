@@ -15,7 +15,8 @@
 import logging
 import re
 
-from collections import namedtuple, MutableSet
+from collections.abc import MutableSet
+from collections import namedtuple
 from itertools import combinations
 
 from mongo_connector import errors
